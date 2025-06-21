@@ -1,0 +1,305 @@
+/* Home Page Styling */
+.homeContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a1128, #1282a2);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  background: linear-gradient(to right, #ffffff, #64dfdf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(100, 223, 223, 0.3);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.historyButton {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: white;
+}
+
+.historyButton:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.historyButton p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.logoutButton {
+  background-color: rgba(255, 71, 87, 0.2);
+  color: #ff4757;
+  border: 2px solid #ff4757;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: #ff4757;
+  color: white;
+}
+
+.meetContainer {
+  display: flex;
+  flex: 1;
+  padding: 40px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leftPanel {
+  flex: 1;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeInLeft 1s ease;
+}
+
+.leftPanel h2 {
+  font-size: 2.8rem;
+  color: white;
+  margin-bottom: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 600px;
+  position: relative;
+}
+
+.leftPanel h2 span {
+  background: linear-gradient(to right, #ff9839, #ffbd6a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.joinContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.meetingInput {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 15px;
+  width: 300px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.meetingInput:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: #64dfdf;
+  box-shadow: 0 0 15px rgba(100, 223, 223, 0.5);
+  outline: none;
+}
+
+.meetingInput::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.joinButton {
+  background: linear-gradient(45deg, #3498db, #64dfdf);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(100, 223, 223, 0.4);
+}
+
+.joinButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(100, 223, 223, 0.5);
+}
+
+.joinButton:active {
+  transform: translateY(0);
+}
+
+.rightPanel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInRight 1s ease;
+}
+
+.rightPanel img {
+  max-width: 90%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  transform: perspective(1000px) rotateY(-10deg);
+}
+
+.rightPanel img:hover {
+  transform: perspective(1000px) rotateY(0);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Create new meeting option */
+.createMeeting {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-width: 300px;
+}
+
+.createMeeting:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.createMeeting svg {
+  font-size: 24px;
+}
+
+/* Animations */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .meetContainer {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .leftPanel {
+    padding-right: 0;
+    margin-bottom: 40px;
+  }
+  
+  .leftPanel h2 {
+    font-size: 2.4rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .joinContainer {
+    justify-content: center;
+  }
+  
+  .createMeeting {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .navBar {
+    padding: 15px 20px;
+  }
+  
+  .logo h2 {
+    font-size: 1.8rem;
+  }
+  
+  .joinContainer {
+    flex-direction: column;
+  }
+  
+  .meetingInput, .joinButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .navActions {
+    gap: 5px;
+  }
+  
+  .leftPanel h2 {
+    font-size: 2rem;
+  }
+  
+  .historyButton {
+    padding: 6px 10px;
+  }
+  
+  .logoutButton {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,707 @@
+.meetVideoContainer {
+    position: relative;
+    height: 100vh;
+    background: linear-gradient(135deg, #0a1128, #1282a2);
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row; /* Chat and video side by side */
+}
+
+.meetUserVideo {
+    position: absolute;
+    bottom: 100px;
+    height: 180px;
+    width: auto;
+    max-width: 240px;
+    right: 20px; /* Changed from left to right */
+    border-radius: 20px;
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border: 3px solid rgba(100, 223, 223, 0.7);
+    transition: all 0.3s ease;
+    animation: pulse 3s infinite alternate;
+}
+
+.buttonContainers {
+    position: absolute;
+    width: 70%; /* Adjusted to match video area width */
+    bottom: 20px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.buttonContainers svg {
+    font-size: 2.2rem;
+    margin: 0 15px;
+    transition: transform 0.3s ease, color 0.3s ease;
+    color: white;
+}
+
+.buttonContainers svg:hover {
+    transform: scale(1.15);
+    color: #64dfdf;
+}
+
+.conferenceView {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 20px;
+    padding: 25px;
+    height: 100vh;
+    width: 70%; /* Reduced to make room for chat */
+    box-sizing: border-box;
+    animation: fadeIn 0.5s ease;
+    overflow-y: auto; /* Allow scrolling if needed */
+}
+
+/* Adjust grid based on participant count */
+.conferenceView:has(> div:nth-child(1):nth-last-child(1)) {
+    grid-template-columns: 1fr;
+}
+
+.conferenceView:has(> div:nth-child(1):nth-last-child(2)),
+.conferenceView:has(> div:nth-child(2):nth-last-child(1)) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.conferenceView:has(> div:nth-child(1):nth-last-child(3)),
+.conferenceView:has(> div:nth-child(2):nth-last-child(2)),
+.conferenceView:has(> div:nth-child(3):nth-last-child(1)) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.conferenceView:has(> div:nth-child(1):nth-last-child(4)),
+.conferenceView:has(> div:nth-child(2):nth-last-child(3)),
+.conferenceView:has(> div:nth-child(3):nth-last-child(2)),
+.conferenceView:has(> div:nth-child(4):nth-last-child(1)) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.conferenceView:has(> div:nth-child(n+5)) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(200px, 1fr);
+}
+
+.conferenceView > div {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: joinAnimation 0.5s ease-out;
+}
+
+/* Lobby styles */
+.lobbyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #0a1128, #1282a2);
+    padding: 40px;
+    text-align: center;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.lobbyContainer h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    background: linear-gradient(to right, #ffffff, #64dfdf);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.lobbyContainer .MuiTextField-root {    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-bottom: 25px;
+    width: 300px;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.lobbyContainer .MuiTextField-root input {
+    color: white;
+}
+
+.lobbyContainer .MuiTextField-root fieldset {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.lobbyContainer .MuiTextField-root:hover fieldset {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.lobbyContainer .MuiTextField-root.Mui-focused fieldset {
+    border-color: #64dfdf;
+}
+
+.lobbyContainer button {
+    margin-bottom: 30px;
+    padding: 12px 35px;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, #3498db, #64dfdf);
+    color: white;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(100, 223, 223, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    border: none;
+}
+
+.lobbyContainer button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(100, 223, 223, 0.5);
+    background: linear-gradient(45deg, #2980b9, #3ecbd6);
+}
+
+.lobbyContainer video {
+    width: 400px;
+    max-width: 80vw;
+    height: auto;
+    border-radius: 16px;
+    border: 3px solid rgba(100, 223, 223, 0.7);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+/* Animation for participants joining */
+@keyframes joinAnimation {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.conferenceView video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    background-color: rgba(10, 17, 40, 0.8);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(100, 223, 223, 0.3);
+    transition: all 0.3s ease;
+}
+
+.conferenceView > div:hover video {
+    border-color: rgba(100, 223, 223, 0.8);
+    transform: scale(1.01);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.chatRoom {
+    width: 30%; /* Fixed width for chat area */
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    color: #0a1128;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+    animation: slideInFromRight 0.5s ease-out;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.chatContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.chatContainer h1 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(18, 130, 162, 0.2);
+    margin-bottom: 20px;
+    font-weight: 600;
+    background: linear-gradient(to right, #0a1128, #1282a2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chattingDisplay {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #f8fcff;
+    border: 1px solid rgba(18, 130, 162, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Custom scrollbar for webkit browsers */
+.chattingDisplay::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chattingDisplay::-webkit-scrollbar-track {
+    background: rgba(18, 130, 162, 0.05);
+    border-radius: 10px;
+}
+
+.chattingDisplay::-webkit-scrollbar-thumb {
+    background: rgba(18, 130, 162, 0.3);
+    border-radius: 10px;
+}
+
+/* For Firefox */
+@supports (scrollbar-width: thin) {
+    .chattingDisplay {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(100, 223, 223, 0.5) rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Chat message styling */
+.chattingDisplay > div {
+    margin-bottom: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.chattingDisplay p {
+    margin: 5px 0;
+}
+
+.chattingDisplay p:first-child {
+    font-weight: 600;
+    color: #1282a2;
+    margin-bottom: 5px;
+}
+
+.chattingDisplay p:last-child {
+    padding: 12px 18px;
+    background: #f0faff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    max-width: 85%;
+    word-wrap: break-word;
+    border-left: 2px solid #64dfdf;
+    line-height: 1.5;
+    color: #0a1128;
+}
+
+/* Chat input styling */
+.chattingArea .MuiTextField-root {
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.chattingArea .MuiTextField-root input {
+    color: #0a1128;
+}
+
+.chattingArea .MuiTextField-root fieldset {
+    border-color: rgba(18, 130, 162, 0.2);
+}
+
+.chattingArea .MuiTextField-root:hover fieldset {
+    border-color: rgba(18, 130, 162, 0.5);
+}
+
+.chattingArea .MuiTextField-root.Mui-focused fieldset {
+    border-color: #1282a2;
+}
+
+.chattingArea button {
+    background: linear-gradient(45deg, #3498db, #64dfdf);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(100, 223, 223, 0.4);
+}
+
+.chattingArea button:hover {
+    background: linear-gradient(45deg, #2980b9, #64dfdf);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(100, 223, 223, 0.5);
+}
+
+/* Additional animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 1200px) {
+    .conferenceView {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .conferenceView:has(> div:nth-child(n+5)) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .conferenceView {
+        width: 65%;
+    }
+    
+    .chatRoom {
+        width: 35%;
+    }
+    
+    .buttonContainers {
+        width: 65%;
+    }
+    
+    .conferenceView:has(> div:nth-child(n+4)) {
+        grid-auto-rows: minmax(120px, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .conferenceView {
+        width: 60%;
+    }
+    
+    .chatRoom {
+        width: 40%;
+    }
+    
+    .buttonContainers {
+        width: 60%;
+        padding: 12px 0;
+    }
+    
+    .meetUserVideo {
+        height: 120px;
+        max-width: 160px;
+        bottom: 80px;
+    }
+    
+    .buttonContainers svg {
+        font-size: 1.8rem;
+        margin: 0 10px;
+    }
+    
+    .chatContainer h1 {
+        font-size: 1.5rem;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Switch to vertical layout on small screens */
+    .meetVideoContainer {
+        flex-direction: column;
+    }
+    
+    .conferenceView {
+        width: 100%;
+        height: 60vh;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: minmax(180px, 1fr);
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .chatRoom {
+        width: 100%;
+        height: 40vh;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 10px 15px;
+    }
+    
+    .buttonContainers {
+        width: 95%;
+        padding: 10px 0;
+        border-radius: 30px;
+        bottom: 10px;
+    }
+    
+    .meetUserVideo {
+        height: 90px;
+        max-width: 120px;
+        left: 10px;
+        bottom: 70px;
+        border-width: 2px;
+    }
+    
+    .buttonContainers svg {
+        font-size: 1.5rem;
+        margin: 0 8px;
+    }
+    
+    .chattingDisplay {
+        padding: 10px;
+    }
+    
+    .chattingDisplay p:last-child {
+        padding: 10px 12px;
+    }
+    
+    .chatContainer h1 {
+        font-size: 1.3rem;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+    }
+}
+
+/* No conditional chat display needed since it's always visible */
+    
+    .chatRoom {
+        width: 280px;
+    }
+
+
+/* Chat toggle button styling */
+.chatToggleBtn {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    padding: 8px;
+    transition: background-color 0.3s;
+}
+
+.chatToggleBtn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Add visual cue for new messages */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,255,255, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255,255,255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,255,255, 0); }
+}
+
+.newMessageIndicator {
+    animation: pulse 1.5s infinite;
+}
+
+/* Additional fixes to ensure proper layout */
+
+/* Fix video grid layout */
+.conferenceView > div {
+    animation: joinAnimation 0.5s ease-out;
+}
+
+/* Ensure buttons are properly positioned */
+.buttonContainers {
+    left: 0;
+    right: auto;
+    transform: translateX(0);
+}
+
+/* Improve chat container layout */
+.chatRoom {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure chat input is always at the bottom */
+.chattingArea {
+    margin-top: auto;
+    position: relative;
+    bottom: 0;
+}
+
+/* Fix padding and alignment for button bar */
+.buttonContainers {
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+}
+
+/* Fix for 4+ participants */
+.conferenceView:has(> div:nth-child(n+4)) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+/* Make sure videos are always visible */
+.conferenceView video {
+    object-fit: cover;
+}
+
+/* Add pulse animation for active elements */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(100, 223, 223, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(100, 223, 223, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(100, 223, 223, 0);
+    }
+}
+
+/* Username Entry Page Styling */
+.usernameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #0a1128, #1282a2);
+    padding: 40px;
+    text-align: center;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.usernameContainer h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    background: linear-gradient(to right, #ffffff, #64dfdf);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(100, 223, 223, 0.3);
+    font-weight: 600;
+}
+
+.usernameField {
+    margin-bottom: 25px !important;
+    width: 350px;
+}
+
+.usernameField input {
+    color: white !important;
+}
+
+.usernameField .MuiOutlinedInput-root fieldset {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.usernameField .MuiOutlinedInput-root:hover fieldset {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.usernameField .MuiOutlinedInput-root.Mui-focused fieldset {
+    border-color: #64dfdf !important;
+}
+
+.usernameField .MuiInputLabel-root {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.usernameField .MuiInputLabel-root.Mui-focused {
+    color: #64dfdf !important;
+}
+
+.usernameButton {
+    margin-bottom: 30px !important;
+    padding: 12px 35px !important;
+    font-size: 1.2rem !important;
+    background: linear-gradient(45deg, #3498db, #64dfdf) !important;
+    color: white !important;
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 15px rgba(100, 223, 223, 0.4) !important;
+    transition: all 0.3s ease !important;
+    text-transform: none !important;
+    border: none !important;
+}
+
+.usernameButton:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 7px 20px rgba(100, 223, 223, 0.5) !important;
+    background: linear-gradient(45deg, #2980b9, #3ecbd6) !important;
+}
+
+.videoPreview {
+    margin-top: 20px;
+    width: 400px;
+    max-width: 80vw;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 3px solid rgba(100, 223, 223, 0.7);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.videoPreview video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Add fadeInLeft animation for consistent entrance animations */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Ensure consistent styling for any MUI elements */
+button.MuiButton-root {
+    text-transform: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Consistent hover effects */
+.meetUserVideo:hover,
+.conferenceView video:hover {
+    transform: scale(1.03);
+    border-color: rgba(100, 223, 223, 1);
+}
